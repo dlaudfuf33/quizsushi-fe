@@ -45,6 +45,7 @@ jobs:
           port: 1202
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: 1202
           script: |
             set -e
             cd /home/leenux/quizsushi/fe
