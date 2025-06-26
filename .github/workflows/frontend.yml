@@ -42,16 +42,14 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
+          port: 1202
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          port: 1202
           script: |
             set -e
             cd /home/leenux/quizsushi/fe
+            echo "IMAGE_TAG=${{ github.sha }}" > .env.prod
             echo "📁 서버 디렉토리 이동"
-
-            echo "📦 도커 최신 이미지 가져오기"
-            docker pull dlaudfuf33/quizsushi-fe:${{ github.sha }}
 
             echo "🛑 기존 컨테이너 정리"
             docker compose down
