@@ -244,14 +244,16 @@ export default function CategoriesClientPage({ categories }: Props) {
                   ))}
                 </div>
               ) : quizzes.length > 0 ? (
-                // 퀴즈 목록 with InfiniteScroll
                 <InfiniteScroll
                   dataLength={quizzes.length}
                   next={() => setPage((prev) => prev + 1)}
                   hasMore={hasMore}
                   loader={
-                    <div className="col-span-full text-center text-sm text-gray-500 dark:text-gray-400 py-6">
-                      불러오는 중...
+                    <div className="text-center text-gray-400 mt-4 py-4">
+                      <div className="flex items-center justify-center gap-2">
+                        <div className="w-4 h-4 border-2 border-gray-400 border-t-transparent rounded-full animate-spin"></div>
+                        불러오는 중...
+                      </div>
                     </div>
                   }
                 >
