@@ -94,7 +94,7 @@ export function FileUploader({ onFileUpload }: Props) {
             {isUploading ? "업로드 완료!" : "파일 업로드"}
           </h3>
           <p className="text-sm text-gray-600 dark:text-gray-400 max-w-md">
-            JSON 또는 CSV 파일을 드래그하여 놓거나 클릭하여 업로드하세요
+            JSON 파일을 드래그하여 놓거나 클릭하여 업로드하세요
           </p>
         </div>
 
@@ -108,14 +108,14 @@ export function FileUploader({ onFileUpload }: Props) {
             </span>
           </div>
 
-          <div className="flex flex-col items-center space-y-2">
+          {/* <div className="flex flex-col items-center space-y-2">
             <div className="rounded-xl bg-green-100 dark:bg-green-900/30 p-3">
               <FileSpreadsheet className="h-6 w-6 text-green-600 dark:text-green-400" />
             </div>
             <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-              CSV
+              XLS
             </span>
-          </div>
+          </div> */}
         </div>
 
         <Button

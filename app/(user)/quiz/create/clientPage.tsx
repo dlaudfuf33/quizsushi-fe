@@ -1,6 +1,6 @@
 "use client";
 
-import { parseCSV, parseJSON } from "@/lib/parser/parse";
+import { parseJSON } from "@/lib/parser/parse";
 import { toast } from "react-toastify";
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
@@ -28,18 +28,21 @@ import { QuizFormInputs } from "@/components/quiz/create/QuizFormInputs";
 import { QuizBottomController } from "@/components/quiz/create/QuizBottomController";
 import { AIGenerationLoader } from "@/components/quiz/create/AIGenerationLoader";
 import { AIGenerationSuccess } from "@/components/quiz/create/AIGenerationSuccess";
-import type { QuestionData } from "@/types/quiz.types";
+import type { QuestionData, QuestionType } from "@/types/quiz.types";
 import BackButton from "@/components/ui/back-button";
 import { useAuth } from "@/context/AuthContext";
 import LoadingPage from "@/components/LoadingPage";
 import { TermsAgreementModal } from "@/components/quiz/create/TermsAgreementModal";
 
-type ParsedQuestion = {
+export interface ParsedQuestion {
+  type?: QuestionType;
+  subject?: string;
   question: string;
-  options?: string[];
-  correctIdx?: number;
+  options: string[];
+  correctAnswer?: number[];
   correctAnswerText?: string;
-};
+  explanation?: string;
+}
 
 interface Props {
   categories: Category[];
@@ -204,22 +207,25 @@ export default function CreateQuizClientPage({ categories }: Props) {
 
         if (file.name.endsWith(".json")) {
           parsedData = parseJSON(text);
-        } else if (file.name.endsWith(".csv")) {
-          parsedData = parseCSV(text);
         }
 
         const convertedQuestions: QuestionData[] = parsedData.map(
           (item, idx) => ({
             id: crypto.randomUUID(),
             no: questions.length + idx + 1,
-            subject: "",
-            type: item.correctIdx !== undefined ? "MULTIPLE" : "SHORT",
+            subject: item.subject ?? "",
+            type:
+              item.type ??
+              (item.correctAnswer !== undefined ? "MULTIPLE" : "SHORT"),
             question: item.question,
             options: item.options || [],
-            correctAnswer:
-              item.correctIdx !== undefined ? [item.correctIdx + 1] : undefined,
+            correctAnswer: Array.isArray(item.correctAnswer)
+              ? item.correctAnswer.map((n) => n)
+              : typeof item.correctAnswer === "number"
+              ? [item.correctAnswer]
+              : undefined,
             correctAnswerText: item.correctAnswerText ?? undefined,
-            explanation: "",
+            explanation: item.explanation ?? "",
           })
         );
 
