@@ -1,0 +1,43 @@
+export const heroItems = [
+  {
+    id: "1",
+    title: "나만의 퀴즈셋 만들기\n파일로 간편 업로드!",
+    description:
+      "CSV·JSON 업로드로 손쉽게 문제 등록\n초밥처럼 정갈하게 구성된 문제 카드 지원",
+    image: "chobap1.png",
+    imageAlt: "퀴즈 업로드 마스코트",
+    labels: ["문제제작", "CSV/JSON 지원", "MARKDOWN 활용가능!"],
+    color: "item2",
+    textColor: "text-gray-900 dark:text-gray-50",
+    badge: "기능 업데이트",
+    buttonText: "퀴즈 만들기",
+    buttonLink: "/quiz/create",
+  },
+  {
+    id: "2",
+    title: "다른 유저가 낸\n퀴즈셋 둘러보기",
+    description: "다양한 주제의 문제셋 탐색\n카테고리별 인기 퀴즈부터 신작까지",
+    image: "chobap2.png",
+    imageAlt: "탐색 마스코트",
+    labels: ["전체 공개", "카테고리 추천"],
+    color: "item3",
+    textColor: "text-gray-900 dark:text-gray-50",
+    badge: "오늘의 추천 🍣",
+    buttonText: "지금 탐색하기",
+    buttonLink: "/quiz/categories?id=all",
+  },
+  {
+    id: "3",
+    title: "퀴즈는 어떻게 만들까요?\n",
+    description:
+      "1. 제목과 설명을 입력하고\n2. 문제 유형을 선택한 뒤\n3. 문제와 정답을 입력하면 끝!",
+    image: "tuna.png",
+    imageAlt: "문제 만들기 설명 마스코트",
+    labels: ["직관적인 에디터", "다양한 문제 유형", "AI 검토 예정"],
+    color: "item1",
+    textColor: "text-gray-900 dark:text-gray-50",
+    badge: "제작 가이드 🍣",
+    buttonText: "퀴즈 제작 방법 보기",
+    buttonLink: "/quiz/create/guide",
+  },
+];
