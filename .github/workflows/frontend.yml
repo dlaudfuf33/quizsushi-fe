@@ -17,6 +17,9 @@ jobs:
         with:
           node-version: 20
 
+      - name: Generate .env.production for Next.js build
+        run: echo "${{ secrets.ENV_PRODUCTION_CONTENT }}" > .env.production
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
@@ -35,32 +38,28 @@ jobs:
             dlaudfuf33/quizsushi-fe:latest
             dlaudfuf33/quizsushi-fe:${{ github.sha }}
 
-      - name: SSH deploy via Blue/Green
+      - name: SSH deploy frontend container
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ secrets.SERVER_HOST }}
+          port: 1202
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            echo "🔄 Pulling new Docker image..."
+            set -e
+            cd /home/leenux/quizsushi/fe
+            echo "📁 서버 디렉토리 이동"
+
+            echo "📦 도커 최신 이미지 가져오기"
             docker pull dlaudfuf33/quizsushi-fe:${{ github.sha }}
 
-            echo "📦 Renaming existing container to backup..."
-            docker rename quizsushi-fe quizsushi-fe-backup || true
+            echo "🛑 기존 컨테이너 정리"
+            docker compose down
 
-            echo "🚀 Starting new container..."
-            docker run -d --name quizsushi-fe -p 3000:3000 \
-              --env-file /home/ubuntu/fe.env \
-              dlaudfuf33/quizsushi-fe:${{ github.sha }}
+            echo "🚀 새 버전으로 컨테이너 실행"
+            IMAGE_TAG=${{ github.sha }} docker compose up -d
 
-            echo "⏱ Waiting for container to become healthy..."
-            sleep 5
-            if curl -sf http://localhost:3000 > /dev/null; then
-              echo "✅ Deployment successful. Removing backup..."
-              docker rm -f quizsushi-fe-backup || true
-            else
-              echo "❌ Deployment failed. Rolling back..."
-              docker rm -f quizsushi-fe || true
-              docker rename quizsushi-fe-backup quizsushi-fe
-              exit 1
-            fi
+            echo "📝 배포 버전 기록"
+            bash record_version.sh ${{ github.sha }}
+
+            echo "✅ 배포 완료"
