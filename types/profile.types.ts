@@ -1,10 +1,10 @@
 export interface UserData {
-  nickName: string;
+  nickname: string;
   email: string;
   birthDate: string;
   gender: string;
   avatar: string;
-  joinDate: string;
+  createAt: string;
   stats: {
     totalQuizzesSolved: number;
     totalQuizzesCreated: number;

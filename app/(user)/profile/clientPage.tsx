@@ -166,17 +166,17 @@ export function MyPageClient({ userData, error }: MyPageClientProps) {
             <Avatar className="w-20 h-20 border-4 border-primary/20">
               <AvatarImage
                 src={userData.avatar || "/placeholder.svg"}
-                alt={userData.nickName}
+                alt={userData.nickname}
               />
               <AvatarFallback className="bg-primary/10 text-primary text-xl font-bold">
-                {userData.nickName.charAt(0)}
+                {userData.nickname.charAt(0)}
               </AvatarFallback>
             </Avatar>
 
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
-                  {userData.nickName}
+                  {userData.nickname}
                 </h1>
               </div>
               <p className="text-gray-600 dark:text-gray-400 mb-3">
@@ -185,7 +185,7 @@ export function MyPageClient({ userData, error }: MyPageClientProps) {
               <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
                 <span className="flex items-center gap-1">
                   <Calendar className="w-4 h-4" />
-                  가입일: {userData.joinDate}
+                  가입일: {userData.createAt}
                 </span>
               </div>
             </div>

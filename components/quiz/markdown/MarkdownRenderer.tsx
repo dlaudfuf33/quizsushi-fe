@@ -77,7 +77,6 @@ const MarkdownRenderer = ({ content }: { content: string }) => {
               />
             );
           },
-          p: ({ children }) => <>{children}</>,
         }}
       >
         {content}
