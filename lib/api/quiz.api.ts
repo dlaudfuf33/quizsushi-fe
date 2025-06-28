@@ -40,22 +40,6 @@ export const QuizAPI = {
     return res.data.data.quizId;
   },
 
-  async generateAIQuestions(
-    payload: {
-      topic: string;
-      description?: string;
-      count: number;
-      difficulty: string;
-      questionType: string;
-    },
-    cookie?: string
-  ) {
-    const res = await apiClient.post("/quizzes/generate", payload, {
-      headers: cookie ? { Cookie: cookie } : undefined,
-    });
-    return res.data.data;
-  },
-
   async deleteQuiz(quizId: string, cookie?: string) {
     const res = await apiClient.delete(`/quizzes/${quizId}`, {
       headers: cookie ? { Cookie: cookie } : undefined,

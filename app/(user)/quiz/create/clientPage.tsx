@@ -33,6 +33,7 @@ import BackButton from "@/components/ui/back-button";
 import { useAuth } from "@/context/AuthContext";
 import LoadingPage from "@/components/LoadingPage";
 import { TermsAgreementModal } from "@/components/quiz/create/TermsAgreementModal";
+import { AiAPI } from "@/lib/api/ai.api";
 
 export interface ParsedQuestion {
   type?: QuestionType;
@@ -257,7 +258,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
     };
 
     try {
-      const res = await QuizAPI.generateAIQuestions(payload);
+      const res = await AiAPI.generateAiQuestions(payload);
 
       const rawQuestions = res ?? [];
 
