@@ -1,12 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-
 import { Save, User, Mail } from "lucide-react";
 
 import { MemberAPI } from "@/lib/api/member.api";
@@ -21,14 +20,26 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useAuth } from "@/context/AuthContext";
 
 interface Props {
   userProfile: UserData;
 }
 
 export function SettingsClient({ userProfile }: Props) {
-  const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const { isLoggedIn, user, isInitialized } = useAuth();
+  const toastShownRef = useRef(false);
+
+  // 로그인 체크 및 리다이렉트
+  useEffect(() => {
+    if (isInitialized && !isLoggedIn && !toastShownRef.current) {
+      toastShownRef.current = true;
+      toast.error("로그인이 필요한 서비스입니다.");
+      router.push("/login");
+    }
+  }, [isLoggedIn, isInitialized, router]);
 
   // 생년월일 파싱 함수
   const parseBirthDate = (dateString: string) => {
@@ -74,6 +85,9 @@ export function SettingsClient({ userProfile }: Props) {
 
   const handleSaveSettings = async () => {
     setIsLoading(true);
+    if (!nickname || !birthYear || birthMonth || birthDate || gender) {
+      toast.error("항목을 모두 채워주세요");
+    }
     const birth = `${birthYear}-${birthMonth}-${birthDate}`;
     try {
       await Promise.all([

@@ -1,7 +1,7 @@
 "use client";
 
 import InfiniteScroll from "react-infinite-scroll-component";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -32,6 +32,7 @@ import { toast } from "react-toastify";
 import { MemberAPI } from "@/lib/api/member.api";
 import { CreatedQuizCard } from "@/components/profile/CreatedQuizCard";
 import { SolvedQuizCard } from "@/components/profile/SolvedQuizCard";
+import { useAuth } from "@/context/AuthContext";
 
 interface MyPageClientProps {
   userData: UserData;
@@ -50,6 +51,17 @@ export function MyPageClient({ userData, error }: MyPageClientProps) {
   const [solvedPage, setSolvedPage] = useState(0);
   const [solvedTotalPages, setSolvedTotalPages] = useState(1);
   const [solvedLoading, setSolvedLoading] = useState(false);
+  const { isLoggedIn, user, isInitialized } = useAuth();
+  const toastShownRef = useRef(false);
+
+  // 로그인 체크 및 리다이렉트
+  useEffect(() => {
+    if (isInitialized && !isLoggedIn && !toastShownRef.current) {
+      toastShownRef.current = true;
+      toast.error("로그인이 필요한 서비스입니다.");
+      router.push("/login");
+    }
+  }, [isLoggedIn, isInitialized, router]);
 
   useEffect(() => {
     if (createdPage === 0 && optimisticQuizzes.length > 0) return;
@@ -66,6 +78,7 @@ export function MyPageClient({ userData, error }: MyPageClientProps) {
           async () => res
         );
       } catch (error) {
+        console.log(error);
         toast.error("퀴즈를 더 불러오지 못했어요.");
       }
     };
@@ -422,7 +435,9 @@ export function MyPageClient({ userData, error }: MyPageClientProps) {
               </h2>
               <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
                 <Award className="w-4 h-4" />
-                <span>총 {solvedQuizzes.length}개 완료</span>
+                <span>
+                  총 {new Set(solvedQuizzes.map((q) => q.id)).size}개 완료
+                </span>
               </div>
             </div>
 
