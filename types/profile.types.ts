@@ -46,7 +46,7 @@ export interface UserSettings {
 
 // 프로필 업데이트 타입 추가
 export interface ProfileUpdateData {
-  nickName?: string;
+  nickname?: string;
   birth?: string;
   gender?: string;
 }

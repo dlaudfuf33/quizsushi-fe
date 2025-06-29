@@ -38,7 +38,7 @@ export function SettingsClient({ userProfile }: Props) {
   };
 
   // 프로필 상태
-  const [nickName, setNickname] = useState(userProfile.nickName || "");
+  const [nickname, setnickname] = useState(userProfile.nickname || "");
   const [gender, setGender] = useState(userProfile.gender || "OTHER");
 
   // 생년월일 상태
@@ -78,7 +78,7 @@ export function SettingsClient({ userProfile }: Props) {
     try {
       await Promise.all([
         MemberAPI.updateProfile({
-          nickName,
+          nickname,
           birth,
           gender,
         }),
@@ -149,8 +149,8 @@ export function SettingsClient({ userProfile }: Props) {
                     <Label htmlFor="nickname">닉네임</Label>
                     <Input
                       id="nickname"
-                      value={nickName}
-                      onChange={(e) => setNickname(e.target.value)}
+                      value={nickname}
+                      onChange={(e) => setnickname(e.target.value)}
                       placeholder="닉네임을 입력하세요"
                       required
                     />
