@@ -1,5 +1,4 @@
 "use client";
-import AdminSidebar from "@/components/admin/adminSidebar";
 import { AdminProvider } from "@/context/AdminContext";
 import { PropsWithChildren } from "react";
 

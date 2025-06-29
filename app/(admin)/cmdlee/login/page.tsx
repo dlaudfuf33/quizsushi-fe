@@ -16,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 
 export default function Page() {
-  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
