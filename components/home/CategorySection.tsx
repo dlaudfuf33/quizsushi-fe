@@ -3,15 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { CategoryCard } from "@/components/quiz/category/CategoryCard";
 import { CategoryCardSkeleton } from "@/components/skeleton/CategoryCardSkeleton";
-import { IntroductionCategory } from "@/types/category.types";
+import { CategoryAPI } from "@/lib/api/category.api";
 
-interface Props {
-  props: IntroductionCategory[];
-}
-
-export function CategorySection({ props }: Props) {
-  const introCategories = props;
-  // 로딩 중이거나 undefined인 경우 → 스켈레톤
+export async function CategorySection() {
+  const introCategories = await CategoryAPI.getIntroductions();
   if (!introCategories) {
     return (
       <section className="py-12 border-b">
