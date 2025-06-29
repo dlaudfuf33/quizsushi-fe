@@ -198,7 +198,6 @@ export default function MembersClientPage() {
           <CardTitle className="text-white">회원 목록</CardTitle>
           <CardDescription className="text-gray-400">
             검색된 회원: {members.length}명
-            <span className="ml-2 text-yellow-400">• 읽기 전용 모드</span>
           </CardDescription>
         </CardHeader>
         <CardContent>
