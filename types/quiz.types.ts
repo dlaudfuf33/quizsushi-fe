@@ -1,6 +1,6 @@
 import { Category } from "./category.types";
 
-export type QuestionType = "MULTIPLE" | "SHORT";
+export type QuestionType = "MULTIPLE" | "SHORTS";
 
 export interface Quizset {
   id: string;

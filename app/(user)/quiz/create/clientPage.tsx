@@ -166,7 +166,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
     setShowTermsModal(true);
   };
 
-  // 실제 퀴즈 저장 (이용약관 동의 후)
+  // 퀴즈 저장
   const summitQuiz = async () => {
     setIsQuizLoading(true);
     setShowTermsModal(false);
@@ -217,7 +217,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
             subject: item.subject ?? "",
             type:
               item.type ??
-              (item.correctAnswer !== undefined ? "MULTIPLE" : "SHORT"),
+              (item.correctAnswer !== undefined ? "MULTIPLE" : "SHORTS"),
             question: item.question,
             options: item.options || [],
             correctAnswer: Array.isArray(item.correctAnswer)

@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import type { QuestionData, QuestionType } from "@/types/QUIZ.types";
+import type { QuestionData, QuestionType } from "@/types/quiz.types";
 import {
   Trash2,
   BookOpen,
@@ -56,7 +56,7 @@ export function QuestionEditor({
   // 문제 유형 토글 함수 (객관식 <-> 단답형)
   const toggleType = () => {
     const nextType: QuestionType =
-      question.type === "MULTIPLE" ? "SHORT" : "MULTIPLE";
+      question.type === "MULTIPLE" ? "SHORTS" : "MULTIPLE";
     handleChange("type", nextType);
   };
 
