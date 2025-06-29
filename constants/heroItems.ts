@@ -26,18 +26,18 @@ export const heroItems = [
     buttonText: "지금 탐색하기",
     buttonLink: "/quiz/categories?id=all",
   },
-  {
-    id: "3",
-    title: "퀴즈는 어떻게 만들까요?\n",
-    description:
-      "1. 제목과 설명을 입력하고\n2. 문제 유형을 선택한 뒤\n3. 문제와 정답을 입력하면 끝!",
-    image: "tuna.png",
-    imageAlt: "문제 만들기 설명 마스코트",
-    labels: ["직관적인 에디터", "다양한 문제 유형", "AI 검토 예정"],
-    color: "item1",
-    textColor: "text-gray-900 dark:text-gray-50",
-    badge: "제작 가이드 🍣",
-    buttonText: "퀴즈 제작 방법 보기",
-    buttonLink: "/quiz/create/guide",
-  },
+  // {
+  //   id: "3",
+  //   title: "퀴즈는 어떻게 만들까요?\n",
+  //   description:
+  //     "1. 제목과 설명을 입력하고\n2. 문제 유형을 선택한 뒤\n3. 문제와 정답을 입력하면 끝!",
+  //   image: "tuna.png",
+  //   imageAlt: "문제 만들기 설명 마스코트",
+  //   labels: ["직관적인 에디터", "다양한 문제 유형", "AI 검토 예정"],
+  //   color: "item1",
+  //   textColor: "text-gray-900 dark:text-gray-50",
+  //   badge: "제작 가이드 🍣",
+  //   buttonText: "퀴즈 제작 방법 보기",
+  //   buttonLink: "/quiz/create/guide",
+  // },
 ];
