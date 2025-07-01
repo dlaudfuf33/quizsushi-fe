@@ -2,12 +2,13 @@ import { Category } from "./category.types";
 
 export type QuestionType = "MULTIPLE" | "SHORTS";
 
-export interface Quizset {
+export interface QuizSet {
   id: string;
   author: Author;
   title: string;
   description: string;
   useSubject: boolean;
+  mediaKey: string;
   category: Category;
   rating: number;
   ratingCount: number;
