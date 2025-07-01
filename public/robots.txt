@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://quizsushi.com
+
+# Sitemaps
+Sitemap: https://quizsushi.com/sitemap.xml
