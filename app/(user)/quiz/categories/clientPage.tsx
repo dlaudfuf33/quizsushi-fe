@@ -74,7 +74,7 @@ export default function CategoriesClientPage({ categories }: Props) {
       // 결과가 최신 요청인 경우만 적용
       if (debounceKeyRef.current === currentKey) {
         if (page === 0) {
-          setQuizzes(res.quizzes); // 초기화
+          setQuizzes(res.quizzes);
         } else {
           const existingIds = new Set(quizzes.map((q) => q.id));
           const filteredNew = res.quizzes.filter((q) => !existingIds.has(q.id));
