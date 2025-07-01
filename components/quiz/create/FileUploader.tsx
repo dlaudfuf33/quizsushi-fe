@@ -4,7 +4,7 @@ import type React from "react";
 import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { FileJson, FileSpreadsheet, Upload, CheckCircle } from "lucide-react";
+import { FileJson, Upload, CheckCircle } from "lucide-react";
 
 interface Props {
   onFileUpload: (file: File) => void;
@@ -107,15 +107,6 @@ export function FileUploader({ onFileUpload }: Props) {
               JSON
             </span>
           </div>
-
-          {/* <div className="flex flex-col items-center space-y-2">
-            <div className="rounded-xl bg-green-100 dark:bg-green-900/30 p-3">
-              <FileSpreadsheet className="h-6 w-6 text-green-600 dark:text-green-400" />
-            </div>
-            <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-              XLS
-            </span>
-          </div> */}
         </div>
 
         <Button
