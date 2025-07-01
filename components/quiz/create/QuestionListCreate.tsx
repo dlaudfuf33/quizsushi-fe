@@ -19,6 +19,8 @@ interface Props {
   addNewQuestion: () => void;
   questionRefs?: React.RefObject<HTMLDivElement>[];
   onGoToQuestion?: (index: number) => void;
+  uploadMode: "create" | "update";
+  mediaKey?: string;
 }
 
 export default function QuestionListCreate({
@@ -32,6 +34,8 @@ export default function QuestionListCreate({
   addNewQuestion,
   questionRefs,
   onGoToQuestion,
+  uploadMode,
+  mediaKey,
 }: Props) {
   const localRefs = useRef<React.RefObject<HTMLDivElement>[]>([]);
   const controllerRef = useRef<HTMLDivElement>(null);
@@ -129,6 +133,8 @@ export default function QuestionListCreate({
                 markdownMode={markdownMode}
                 useSubject={useSubject}
                 scrollRef={refs[index]}
+                uploadMode={uploadMode}
+                mediaKey={mediaKey}
               />
             </div>
           ))}

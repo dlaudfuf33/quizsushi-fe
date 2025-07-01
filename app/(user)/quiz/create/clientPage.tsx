@@ -431,6 +431,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
                   useSubject={useSubject}
                   onToggleUseSubject={() => setUseSubject((prev) => !prev)}
                   addNewQuestion={addNewQuestion}
+                  uploadMode="create"
                 />
               </TabsContent>
 
@@ -470,6 +471,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
                       useSubject={useSubject}
                       onToggleUseSubject={() => setUseSubject((prev) => !prev)}
                       addNewQuestion={addNewQuestion}
+                      uploadMode="create"
                     />
                   </div>
                 )}

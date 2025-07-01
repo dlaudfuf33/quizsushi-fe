@@ -26,6 +26,8 @@ interface Props {
   markdownMode: "edit" | "preview";
   useSubject: boolean;
   scrollRef?: React.RefObject<HTMLDivElement>;
+  uploadMode: "create" | "update";
+  mediaKey?: string;
 }
 
 export function QuestionEditor({
@@ -36,6 +38,8 @@ export function QuestionEditor({
   markdownMode,
   useSubject,
   scrollRef,
+  uploadMode,
+  mediaKey,
 }: Props) {
   // 파일 입력 엘리먼트에 대한 참조 생성
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -190,6 +194,8 @@ export function QuestionEditor({
             onChange={(val) => handleChange("question", val)}
             placeholder="문제 내용을 입력하세요 (마크다운 지원)"
             mode={markdownMode}
+            uploadMode={uploadMode}
+            mediaKey={mediaKey}
             variant="question"
           />
         </div>
@@ -226,6 +232,8 @@ export function QuestionEditor({
                       onChange={(val) => updateOption(index, val)}
                       placeholder={`선택지 ${index + 1}을 입력하세요`}
                       mode={markdownMode}
+                      uploadMode={uploadMode}
+                      mediaKey={mediaKey}
                       variant="option"
                     />
                   </div>
@@ -305,6 +313,8 @@ export function QuestionEditor({
             onChange={(val) => handleChange("explanation", val)}
             placeholder="문제 해설을 입력하세요 (선택사항)"
             mode={markdownMode}
+            uploadMode={uploadMode}
+            mediaKey={mediaKey}
             variant="explanation"
           />
         </div>

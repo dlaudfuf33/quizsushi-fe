@@ -18,6 +18,8 @@ interface Props {
   label?: string;
   height?: number | string;
   mode: "edit" | "preview";
+  uploadMode: "create" | "update";
+  mediaKey?: string;
   variant?: "question" | "option" | "explanation";
 }
 
@@ -29,6 +31,8 @@ export function MarkdownInputWithUpload({
   className,
   label,
   mode,
+  uploadMode,
+  mediaKey,
   variant,
 }: Props) {
   // 숨겨진 파일 입력
@@ -110,7 +114,17 @@ export function MarkdownInputWithUpload({
     const failed = `![failed ${file.name}…]()`;
 
     try {
-      const url = await UploadAPI.uploadFile(file);
+      let url = "";
+
+      if (uploadMode === "create") {
+        url = await UploadAPI.uploadFiletoTmp(file);
+      } else if (uploadMode === "update") {
+        if (!mediaKey) {
+          toast.error("mediaKey가 누락되었습니다.");
+          return;
+        }
+        url = await UploadAPI.uploadFileToQuizFolder(file, mediaKey);
+      }
       const finalMarkdown = `![${file.name}](${url})`;
       replace((prev) =>
         placeholder && prev.includes(placeholder)

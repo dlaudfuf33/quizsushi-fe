@@ -1,5 +1,5 @@
 "use client";
-import { parseCSV, parseJSON } from "@/lib/parser/parse";
+import { parseJSON } from "@/lib/parser/parse";
 import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -30,6 +30,7 @@ import { AIGenerationLoader } from "@/components/quiz/create/AIGenerationLoader"
 import { AIGenerationSuccess } from "@/components/quiz/create/AIGenerationSuccess";
 import { QuestionData, Quizset } from "@/types/quiz.types";
 import axios from "axios";
+import { AiAPI } from "@/lib/api/ai.api";
 
 type ParsedQuestion = {
   question: string;
@@ -174,16 +175,13 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
 
         if (file.name.endsWith(".json")) {
           parsedData = parseJSON(text);
-        } else if (file.name.endsWith(".csv")) {
-          parsedData = parseCSV(text);
         }
-
         const convertedQuestions: QuestionData[] = parsedData.map(
           (item, idx) => ({
             id: crypto.randomUUID(),
             no: questions.length + idx + 1,
             subject: "",
-            type: item.correctIdx !== undefined ? "MULTIPLE" : "SHORT",
+            type: item.correctIdx !== undefined ? "MULTIPLE" : "SHORTS",
             question: item.question,
             options: item.options || [],
             correctAnswer:
@@ -217,7 +215,7 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
     };
 
     try {
-      const res = await QuizAPI.generateAIQuestions(payload);
+      const res = await AiAPI.generateAiQuestions(payload);
 
       const rawQuestions = res ?? [];
 
@@ -245,7 +243,7 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
           id: crypto.randomUUID(),
           no: questions.length + idx + 1,
           subject: aiTopic,
-          type: item.type === "SHORT" ? "SHORT" : "MULTIPLE",
+          type: item.type === "SHORTS" ? "SHORTS" : "MULTIPLE",
           question: item.question,
           options: item.options || [],
           correctAnswer: item.correctAnswer,
@@ -354,6 +352,8 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
                   useSubject={useSubject}
                   onToggleUseSubject={() => setUseSubject((prev) => !prev)}
                   addNewQuestion={addNewQuestion}
+                  uploadMode="update"
+                  mediaKey={initQuiz.mediaKey}
                 />
               </TabsContent>
 
@@ -393,6 +393,8 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
                       useSubject={useSubject}
                       onToggleUseSubject={() => setUseSubject((prev) => !prev)}
                       addNewQuestion={addNewQuestion}
+                      uploadMode="update"
+                      mediaKey={initQuiz.mediaKey}
                     />
                   </div>
                 )}
