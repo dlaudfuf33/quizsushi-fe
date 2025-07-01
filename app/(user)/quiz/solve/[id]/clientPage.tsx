@@ -35,7 +35,7 @@ import {
 import { QuestionCard } from "@/components/quiz/solve/QuestionCard";
 import { QuestionCardSkeleton } from "@/components/skeleton/QuestionCardSkeleton";
 import { DeleteQuizModal } from "@/components/quiz/solve/DeleteQuizModal";
-import type { Quizset } from "@/types/quiz.types";
+import type { QuizSet } from "@/types/quiz.types";
 import { toast } from "react-toastify";
 import { QuizAPI } from "@/lib/api/quiz.api";
 import { isAnswerCorrect } from "@/lib/utils";
@@ -49,10 +49,9 @@ import { useAuth } from "@/context/AuthContext";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import ReportModal from "@/components/quiz/solve/ReportModal";
 import QuizDetailSkeleton from "@/components/skeleton/QuizDetailSkeleton";
-import { useAdmin } from "@/context/AdminContext";
 
 interface Props {
-  quizData: Quizset;
+  quizData: QuizSet;
 }
 
 export default function QuizDetailClientPage({ quizData }: Props) {
@@ -689,7 +688,7 @@ export default function QuizDetailClientPage({ quizData }: Props) {
                     }
                     showResults={showResults}
                     onAnswerSelect={(id, value) =>
-                      handleAnswerSelect(id, value, question.type === "SHORT")
+                      handleAnswerSelect(id, value, question.type === "SHORTS")
                     }
                     questionIndex={startIndex + index}
                     totalAnsweredCount={answeredCount}
