@@ -28,7 +28,7 @@ import { QuizFormInputs } from "@/components/quiz/create/QuizFormInputs";
 import { QuizBottomController } from "@/components/quiz/create/QuizBottomController";
 import { AIGenerationLoader } from "@/components/quiz/create/AIGenerationLoader";
 import { AIGenerationSuccess } from "@/components/quiz/create/AIGenerationSuccess";
-import { QuestionData, Quizset } from "@/types/quiz.types";
+import { QuestionData, QuizSet } from "@/types/quiz.types";
 import axios from "axios";
 import { AiAPI } from "@/lib/api/ai.api";
 
@@ -41,7 +41,7 @@ type ParsedQuestion = {
 
 interface Props {
   categories: Category[];
-  initQuiz: Quizset;
+  initQuiz: QuizSet;
 }
 
 export default function EditQuizClientPage({ categories, initQuiz }: Props) {
