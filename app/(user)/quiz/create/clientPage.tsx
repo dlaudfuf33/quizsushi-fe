@@ -11,7 +11,6 @@ import QuestionListCreate from "@/components/quiz/create/QuestionListCreate";
 import { BookOpen, Upload, Edit, Bot, Sparkles, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
@@ -79,7 +78,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
   // AI 관련 상태
   const [aiTopic, setAiTopic] = useState("");
   const [aiDescription, setAiDescription] = useState("");
-  const [aiQuestionCount, setAiQuestionCount] = useState([5]);
+  const [aiQuestionCount, setAiQuestionCount] = useState(1);
   const [aiDifficulty, setAiDifficulty] = useState("medium");
   const [aiQuestionType, setAiQuestionType] = useState("multiple");
   const [isAiGenerating, setIsAiGenerating] = useState(false);
@@ -243,8 +242,11 @@ export default function CreateQuizClientPage({ categories }: Props) {
       toast.warning("주제를 입력해주세요.");
       return;
     }
+    if (aiQuestionCount > 3) {
+      toast.warning("문제 최대 생성 갯수는 3개 입니다.");
+      return;
+    }
 
-    // 새로운 AbortController 생성
     const controller = new AbortController();
     setAiAbortController(controller);
     setIsAiGenerating(true);
@@ -252,7 +254,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
     const payload = {
       topic: aiTopic,
       description: aiDescription,
-      count: aiQuestionCount[0],
+      count: aiQuestionCount,
       difficulty: aiDifficulty,
       questionType: aiQuestionType,
     };
@@ -350,16 +352,6 @@ export default function CreateQuizClientPage({ categories }: Props) {
     <div className="min-h-screen bg-gradient-to-br from-orange-50 via-red-50 to-pink-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900">
       <div className="container mx-auto py-6 px-4 max-w-6xl">
         <BackButton />
-
-        {/* 로그인 사용자 정보 표시 */}
-        {user && (
-          <div className="mb-4 p-3 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg">
-            <p className="text-sm text-blue-800 dark:text-blue-200">
-              <span className="font-medium">{user.nickName}</span>님으로 퀴즈를
-              생성합니다
-            </p>
-          </div>
-        )}
 
         {/* 퀴즈 생성 헤더 영역 */}
         <QuizFormHeader
@@ -555,20 +547,54 @@ export default function CreateQuizClientPage({ categories }: Props) {
                       {/* 문제 개수 */}
                       <div className="space-y-3">
                         <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          문제 개수: {aiQuestionCount[0]}개
+                          문제 개수
                         </Label>
-                        <Slider
-                          value={aiQuestionCount}
-                          onValueChange={setAiQuestionCount}
-                          max={10}
-                          min={1}
-                          step={1}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-xs text-gray-500">
-                          <span>1개</span>
-                          <span>10개</span>
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            {
+                              count: 1,
+                              label: "빠른 생성",
+                              icon: "⚡",
+                            },
+                            {
+                              count: 2,
+                              label: "표준 생성",
+                              icon: "📝",
+                            },
+                            {
+                              count: 3,
+                              label: "충분한 생성",
+                              icon: "📚",
+                            },
+                          ].map((option) => (
+                            <div
+                              key={option.count}
+                              onClick={() => setAiQuestionCount(option.count)}
+                              className={`p-4 rounded-lg border-2 cursor-pointer transition-all duration-200 hover:shadow-md ${
+                                aiQuestionCount === option.count
+                                  ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 shadow-md"
+                                  : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 hover:border-purple-300 hover:bg-purple-25 dark:hover:bg-purple-900/10"
+                              }`}
+                            >
+                              <div className="text-center space-y-2">
+                                <div className="text-2xl">{option.icon}</div>
+                                <div className="text-lg font-bold text-gray-900 dark:text-white">
+                                  {option.count}개
+                                </div>
+                                <div className="text-xs font-medium text-purple-600 dark:text-purple-400">
+                                  {option.label}
+                                </div>
+                              </div>
+                            </div>
+                          ))}
                         </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                          선택한 개수:{" "}
+                          <span className="font-medium text-purple-600 dark:text-purple-400">
+                            {aiQuestionCount}개
+                          </span>
+                          의 문제가 생성됩니다
+                        </p>
                       </div>
 
                       {/* 난이도 선택 */}
@@ -673,7 +699,7 @@ export default function CreateQuizClientPage({ categories }: Props) {
       {/* AI 생성 로더 */}
       <AIGenerationLoader
         isGenerating={isAiGenerating}
-        questionCount={aiQuestionCount[0]}
+        questionCount={aiQuestionCount}
         topic={aiTopic}
         onCancel={cancelAiGeneration}
       />
