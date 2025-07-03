@@ -10,7 +10,6 @@ import QuestionListCreate from "@/components/quiz/create/QuestionListCreate";
 import { BookOpen, Upload, Edit, Bot, Sparkles, Loader2 } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Slider } from "@/components/ui/slider";
 import {
   Select,
   SelectContent,
@@ -62,7 +61,7 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
   // AI 관련 상태
   const [aiTopic, setAiTopic] = useState("");
   const [aiDescription, setAiDescription] = useState("");
-  const [aiQuestionCount, setAiQuestionCount] = useState([5]);
+  const [aiQuestionCount, setAiQuestionCount] = useState(1);
   const [aiDifficulty, setAiDifficulty] = useState("medium");
   const [aiQuestionType, setAiQuestionType] = useState("multiple");
   const [isAiGenerating, setIsAiGenerating] = useState(false);
@@ -204,12 +203,16 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
       toast.warning("주제를 입력해주세요.");
       return;
     }
+    if (aiQuestionCount > 3) {
+      toast.warning("문제 최대 생성 갯수는 3개 입니다.");
+      return;
+    }
 
     setIsAiGenerating(true);
     const payload = {
       topic: aiTopic,
       description: aiDescription,
-      count: aiQuestionCount[0],
+      count: aiQuestionCount,
       difficulty: aiDifficulty,
       questionType: aiQuestionType,
     };
@@ -478,20 +481,32 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
                       {/* 문제 개수 */}
                       <div className="space-y-3">
                         <Label className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                          문제 개수: {aiQuestionCount[0]}개
+                          문제 개수
                         </Label>
-                        <Slider
-                          value={aiQuestionCount}
-                          onValueChange={setAiQuestionCount}
-                          max={10}
-                          min={1}
-                          step={1}
-                          className="w-full"
-                        />
-                        <div className="flex justify-between text-xs text-gray-500">
-                          <span>1개</span>
-                          <span>10개</span>
+                        <div className="flex gap-2">
+                          {[1, 2, 3].map((count) => (
+                            <button
+                              key={count}
+                              type="button"
+                              onClick={() => setAiQuestionCount(count)}
+                              className={`flex-1 h-12 rounded-lg border-2 transition-all duration-200 font-medium text-sm ${
+                                aiQuestionCount === count
+                                  ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20 text-purple-700 dark:text-purple-300 shadow-md"
+                                  : "border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:border-purple-300 hover:bg-purple-25 dark:hover:bg-purple-900/10"
+                              }`}
+                            >
+                              <div className="flex flex-col items-center justify-center">
+                                <span className="text-lg font-bold">
+                                  {count}
+                                </span>
+                                <span className="text-xs">문제</span>
+                              </div>
+                            </button>
+                          ))}
                         </div>
+                        <p className="text-xs text-gray-500 dark:text-gray-400 text-center">
+                          선택한 개수: {aiQuestionCount}개의 문제가 생성됩니다
+                        </p>
                       </div>
 
                       {/* 난이도 선택 */}
@@ -580,7 +595,7 @@ export default function EditQuizClientPage({ categories, initQuiz }: Props) {
       {/* AI 생성 로더 */}
       <AIGenerationLoader
         isGenerating={isAiGenerating}
-        questionCount={aiQuestionCount[0]}
+        questionCount={aiQuestionCount}
         topic={aiTopic}
       />
 
