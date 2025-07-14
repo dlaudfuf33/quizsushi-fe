@@ -7,14 +7,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Trophy } from "lucide-react";
 
-export interface LeaderboardEntry {
-  memberId: string;
-  nickname: string;
-  avatar?: string;
-  bestScore: number;
-  totalGames: number;
-  winRate: number;
-}
+import { LeaderboardEntry } from "@/types/ai-challenge.types";
 
 export default function LeaderboardWidget() {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
