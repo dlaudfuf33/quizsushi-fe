@@ -34,15 +34,7 @@ import LoadingPage from "@/components/LoadingPage";
 import { TermsAgreementModal } from "@/components/quiz/create/TermsAgreementModal";
 import { AiAPI } from "@/lib/api/ai.api";
 
-export interface ParsedQuestion {
-  type?: QuestionType;
-  subject?: string;
-  question: string;
-  options: string[];
-  correctAnswer?: number[];
-  correctAnswerText?: string;
-  explanation?: string;
-}
+import type { ParsedQuestion, QuestionData, QuestionType } from "@/types/quiz.types";
 
 interface Props {
   categories: Category[];
