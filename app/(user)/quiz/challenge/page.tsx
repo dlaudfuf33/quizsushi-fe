@@ -8,63 +8,7 @@ import { useRouter } from "next/navigation";
 import MatchingScreen from "@/components/quiz/challenge/MatchingScreen";
 import GameScreen from "@/components/quiz/challenge/GameScreen";
 
-export interface MatchingMessage {
-  sessionId?: string;
-  status: "JOINED" | "MATCHING" | "MATCHED" | "CANCELLED" | "DISABLED";
-  noticeMessage?: string;
-}
-
-export interface ChallengeMessage {
-  sessionId: string;
-  error?: string;
-  sessionState?: SessionState;
-}
-
-export interface SessionState {
-  phase: Phase;
-  broadcastLog: BroadcastLogEntry[];
-  chatLog: ChatLogEntry[];
-  playerState: PlayerState[];
-  generating: boolean;
-  currentQuestion?: currentQuestion;
-}
-
-export interface Phase {
-  currentRound: number;
-  phase: "INIT" | "WAITING" | "PLAYING" | "GRADING" | "GENERATING" | "GAMEOVER";
-}
-export interface BroadcastLogEntry {
-  id: string;
-  message: string;
-  timestamp: string;
-}
-
-export interface ChatLogEntry {
-  chatAt: string;
-  nickname: string;
-  content: string;
-}
-
-export interface PlayerState {
-  nickname: string;
-  avatar: string;
-  hp: number;
-  maxHp: number;
-  score: number;
-  combo: number;
-  answered: boolean;
-  submittedAnswer: string;
-}
-
-export interface currentQuestion {
-  question: string;
-  explain: string;
-  type: "SHORTS" | "MULTIPLE";
-  options?: string[];
-  givenAt: string;
-  limitTime: number;
-  deadlineTime: number;
-}
+import { MatchingMessage, ChallengeMessage, SessionState, Phase, BroadcastLogEntry, ChatLogEntry, PlayerState, currentQuestion } from "@/types/ai-challenge.types";
 
 export default function TestChallengePage() {
   const [currentChallengeId, setCurrentChallengeId] = useState("");
