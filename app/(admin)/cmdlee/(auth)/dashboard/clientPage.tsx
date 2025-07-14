@@ -31,25 +31,14 @@ import {
   BarChart,
   Bar,
 } from "recharts";
-import { AdminAPI, type DashboardStatsParams } from "@/lib/api/admin.api";
+import { AdminAPI } from "@/lib/api/admin.api";
+import {
+  ChartDataPoint,
+  DashboardStatsParams,
+  StatRawResponse,
+} from "@/types/admin.types";
 import { format, subDays, startOfDay, endOfDay } from "date-fns";
 import { ko } from "date-fns/locale";
-
-interface StatRawResponse {
-  label: string;
-  time: string;
-  count: number;
-}
-
-interface ChartDataPoint {
-  name: string;
-  가입자: number;
-  출제: number;
-  회원_퀴즈풀이: number;
-  비회원_퀴즈풀이: number;
-  신고: number;
-  [key: string]: string | number;
-}
 
 export default function DashboardClientPage({
   initialStats,
