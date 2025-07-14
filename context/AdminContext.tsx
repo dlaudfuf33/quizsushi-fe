@@ -3,20 +3,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { adminApiClient, apiClient } from "@/lib/api/axios";
 
-interface Admin {
-  id: number;
-  alias: string;
-  username: string;
-  role: string;
-}
-
-interface AdminContextType {
-  admin: Admin | null;
-  isInitialized: boolean;
-  isLoggedIn: boolean;
-  logout: () => Promise<void>;
-  refreshAdmin: () => Promise<void>;
-}
+import { Admin, AdminContextType } from "@/types/admin.types";
 
 const AdminContext = createContext<AdminContextType | null>(null);
 
