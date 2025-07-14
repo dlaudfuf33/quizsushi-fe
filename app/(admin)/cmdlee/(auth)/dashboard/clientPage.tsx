@@ -56,6 +56,21 @@ export default function DashboardClientPage({
 }: {
   initialStats: StatRawResponse[];
 }) {
+  // 첼린지 상태
+  const [challengeEnabled, setChallengeEnabled] = useState<boolean | null>(
+    null
+  );
+
+  const fetchChallengeToggleStatus = async () => {
+    try {
+      const res = await AdminAPI.getChallengeToggleStatus();
+      setChallengeEnabled(res);
+    } catch (error) {
+      console.error("챌린지 상태 조회 실패:", error);
+      setChallengeEnabled(null);
+    }
+  };
+
   // 날짜 상태
   const [dateRange, setDateRange] = useState<{ from: Date; to: Date }>({
     from: subDays(new Date(), 7),
@@ -107,6 +122,7 @@ export default function DashboardClientPage({
 
   // 초기 로드 및 파라미터 변경 시 데이터 가져오기
   useEffect(() => {
+    fetchChallengeToggleStatus();
     fetchData();
   }, [dateRange, timeUnit]);
 
@@ -676,6 +692,51 @@ export default function DashboardClientPage({
               </Card>
             </div>
           )}
+
+          <Card className="bg-gray-900 border-gray-800">
+            <CardContent className="p-4">
+              <div className="flex flex-col lg:flex-row lg:items-center gap-4">
+                <div className="flex items-center gap-2 text-gray-400">
+                  <span>|</span>
+                </div>
+
+                {/* 챌린지 상태 */}
+                <div className="flex items-center gap-3">
+                  <label className="text-sm text-gray-400">챌린지 상태:</label>
+                  {challengeEnabled === null ? (
+                    <span className="text-sm text-gray-500">로딩 중...</span>
+                  ) : (
+                    <>
+                      <span
+                        className={`px-2 py-1 text-xs font-semibold rounded-full ${
+                          challengeEnabled
+                            ? "bg-green-600 text-white"
+                            : "bg-gray-600 text-white"
+                        }`}
+                      >
+                        {challengeEnabled ? "ON" : "OFF"}
+                      </span>
+                      <Button
+                        variant={challengeEnabled ? "destructive" : "secondary"}
+                        size="sm"
+                        onClick={async () => {
+                          try {
+                            await AdminAPI.toggleChallengeStatus();
+                            fetchChallengeToggleStatus();
+                          } catch (e) {
+                            console.error("챌린지 상태 토글 실패", e);
+                          }
+                        }}
+                        className="text-sm"
+                      >
+                        {challengeEnabled ? "OFF로 전환" : "ON으로 전환"}
+                      </Button>
+                    </>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </main>
       </div>
     </div>

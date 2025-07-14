@@ -137,4 +137,13 @@ export const AdminAPI = {
   ): Promise<void> {
     await adminApiClient.patch(`/reports/${id}/status`, { newStatus });
   },
+
+  async getChallengeToggleStatus(): Promise<boolean> {
+    const res = await adminApiClient.get("/challenge/toggle");
+    return res.data.data;
+  },
+
+  async toggleChallengeStatus(): Promise<void> {
+    await adminApiClient.post("/challenge/toggle");
+  },
 };
