@@ -20,12 +20,7 @@ import {
 } from "lucide-react";
 import { AdminAPI } from "@/lib/api/admin.api";
 
-interface Admin {
-  id: number;
-  alias: string;
-  username: string;
-  role: string;
-}
+import { Admin } from "@/types/admin.types";
 
 export default function AdminsClientPage() {
   const { admin: currentUser, refreshAdmin } = useAdmin();

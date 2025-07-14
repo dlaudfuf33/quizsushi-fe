@@ -30,22 +30,41 @@ export interface Member {
   status: string;
 }
 
+export interface Reporter {
+  id?: number | string;
+  email: string;
+}
+
+export interface Reported {
+  type: string;
+  id?: number | string;
+  targetName: string;
+  reason: string;
+}
+
 export interface Report {
   id: number;
   title: string;
   message: string;
-  reporter: {
-    id?: number | string;
-    email: string;
-  };
-  reported: {
-    type: string;
-    id?: number | string;
-    targetName: string;
-    reason: string;
-  };
+  reporter: Reporter;
+  reported: Reported;
   read: boolean;
   status: string;
   createdAt: string;
   updatedAt: string;
+}
+
+export interface Admin {
+  id: number;
+  alias: string;
+  username: string;
+  role: string;
+}
+
+export interface AdminContextType {
+  admin: Admin | null;
+  isInitialized: boolean;
+  isLoggedIn: boolean;
+  logout: () => Promise<void>;
+  refreshAdmin: () => Promise<void>;
 }
