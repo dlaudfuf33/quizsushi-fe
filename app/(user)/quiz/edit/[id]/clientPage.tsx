@@ -31,12 +31,7 @@ import { QuestionData, QuizSet } from "@/types/quiz.types";
 import axios from "axios";
 import { AiAPI } from "@/lib/api/ai.api";
 
-type ParsedQuestion = {
-  question: string;
-  options?: string[];
-  correctIdx?: number;
-  correctAnswerText?: string;
-};
+import { QuestionData, QuizSet, ParsedQuestion } from "@/types/quiz.types";
 
 interface Props {
   categories: Category[];
