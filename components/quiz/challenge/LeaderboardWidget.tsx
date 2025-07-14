@@ -6,7 +6,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Trophy } from "lucide-react";
-
 import { LeaderboardEntry } from "@/types/ai-challenge.types";
 
 export default function LeaderboardWidget() {
@@ -14,7 +13,6 @@ export default function LeaderboardWidget() {
 
   const handleMessage = (message: any) => {
     const data = message as LeaderboardEntry[];
-    console.log("🔵 leaderboard socket payload", message);
     setEntries(data);
   };
 
@@ -24,15 +22,12 @@ export default function LeaderboardWidget() {
   );
 
   useEffect(() => {
-    // 초기에 HTTP fallback으로 데이터 가져오기
     fetch("/api/challenge/leaderboard/top?limit=10")
       .then((res) => res.json())
       .then((res) => setEntries(res.data as LeaderboardEntry[]))
       .catch(() => console.warn("초기 레더보드 불러오기 실패"));
 
-    // 소켓 연결 및 구독
     connect();
-
     return () => disconnect();
   }, [connect, disconnect]);
 
@@ -55,14 +50,14 @@ export default function LeaderboardWidget() {
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <Trophy className="w-5 h-5 text-yellow-500" />
-          🏆 실시간 리더보드
+          리더보드
           <Badge variant="outline" className="ml-auto">
             {isConnected ? "실시간" : "오프라인"}
           </Badge>
         </CardTitle>
       </CardHeader>
       <CardContent>
-        {entries.length === 0 ? (
+        {entries?.length === 0 ? (
           <div className="text-center py-8 text-gray-500 dark:text-gray-400">
             <Trophy className="w-12 h-12 mx-auto mb-2 opacity-50" />
             <p>아직 참가자가 없습니다.</p>

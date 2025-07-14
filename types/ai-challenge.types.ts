@@ -59,6 +59,7 @@ export interface currentQuestion {
 export interface LeaderboardEntry {
   memberId: string;
   nickname: string;
+  avatar: string;
   bestScore: number;
 }
 

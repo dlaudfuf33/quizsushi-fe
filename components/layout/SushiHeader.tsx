@@ -4,7 +4,16 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
-import { Moon, Sun, BookOpen, Edit3, User, X, Menu } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  BookOpen,
+  Edit3,
+  User,
+  X,
+  Menu,
+  Trophy,
+} from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import {
   DropdownMenu,
@@ -47,6 +56,11 @@ export function SushiHeader() {
 
         {/* 데스크톱 메뉴 */}
         <nav className="hidden md:flex items-center gap-1">
+          <Button asChild variant="ghost" size="sm">
+            <Link href="/quiz/challenge">
+              <Trophy className="mr-2 h-4 w-4" /> 챌린지
+            </Link>
+          </Button>
           <Button asChild variant="ghost" size="sm">
             <Link href="/quiz/categories">
               <BookOpen className="mr-2 h-4 w-4" /> 문제 풀기
@@ -120,6 +134,13 @@ export function SushiHeader() {
       {isMenuOpen && (
         <div className="md:hidden border-t bg-white dark:bg-gray-900 dark:border-gray-800">
           <nav className="flex flex-col p-4 space-y-4">
+            <Link
+              href="/quiz/challenge"
+              className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-[#FFA07A] dark:hover:text-[#FFA07A] transition-colors py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              <Trophy className="h-5 w-5" /> 챌린지
+            </Link>
             <Link
               href="/quiz/categories"
               className="flex items-center gap-2 text-gray-700 dark:text-gray-300 hover:text-[#FFA07A] dark:hover:text-[#FFA07A] transition-colors py-2"

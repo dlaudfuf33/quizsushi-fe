@@ -4,11 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import LeaderboardWidget from "./LeaderboardWidget";
 import { useState, useEffect } from "react";
-import { Swords, Shield, Zap, Crown, Bot } from "lucide-react";
-import type {
-  MatchingMessage,
-  ChallengeMessage,
-} from "@/app/(user)/quiz/challenge/page";
+import { ChallengeMessage, MatchingMessage } from "@/types/ai-challenge.types";
+import { Swords } from "lucide-react";
 
 interface MatchingScreenProps {
   isConnected: boolean;

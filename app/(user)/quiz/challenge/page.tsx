@@ -1,14 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useSocketConnection } from "@/hooks/useSocketConnection";
 import { useAuth } from "@/context/AuthContext";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import MatchingScreen from "@/components/quiz/challenge/MatchingScreen";
 import GameScreen from "@/components/quiz/challenge/GameScreen";
-
-import { MatchingMessage, ChallengeMessage, SessionState, Phase, BroadcastLogEntry, ChatLogEntry, PlayerState, currentQuestion } from "@/types/ai-challenge.types";
+import {
+  MatchingMessage,
+  ChallengeMessage,
+  Phase,
+  BroadcastLogEntry,
+  ChatLogEntry,
+  PlayerState,
+  currentQuestion,
+} from "@/types/ai-challenge.types";
 
 export default function TestChallengePage() {
   const [currentChallengeId, setCurrentChallengeId] = useState("");
@@ -27,13 +34,15 @@ export default function TestChallengePage() {
   const [selectedOption, setSelectedOption] = useState<string>("");
   const [chatInput, setChatInput] = useState("");
   const [isInGame, setIsInGame] = useState(false);
-
-  const { isLoggedIn, user, isInitialized } = useAuth();
   const router = useRouter();
+  const { isLoggedIn, user, isInitialized } = useAuth();
+  const toastShownRef = useRef(false);
   const memberId = user?.id;
 
+  // 로그인 체크 및 리다이렉트
   useEffect(() => {
-    if (isInitialized && !isLoggedIn) {
+    if (isInitialized && !isLoggedIn && !toastShownRef.current) {
+      toastShownRef.current = true;
       toast.error("로그인이 필요한 서비스입니다.");
       router.push("/login");
     }
@@ -41,7 +50,6 @@ export default function TestChallengePage() {
 
   const { connect, send, disconnect, isConnected, setConnectHeaders } =
     useSocketConnection(currentChannel, (message) => {
-      console.log("📡 소켓 메시지 수신:", JSON.stringify(message));
       setReceivedMessages((prev) => [...prev, message]);
       if ("status" in message && message.status === "DISABLED") {
         toast.error(message.noticeMessage || "챌린지가 비활성화되어 있습니다.");
@@ -104,7 +112,6 @@ export default function TestChallengePage() {
         : null;
 
     if (sessionId && sessionId !== currentChallengeId) {
-      console.log("🎮 세션 배정됨 → 채널 전환:", sessionId);
       disconnect();
       setTimeout(() => {
         setReceivedMessages([]);
@@ -202,7 +209,6 @@ export default function TestChallengePage() {
         onSendAnswer={handleSendAnswer}
         onSendChat={handleSendChat}
         onLeaveGame={handleLeaveGame}
-        displayedAiMessage={displayedAiMessage}
       />
     );
   }

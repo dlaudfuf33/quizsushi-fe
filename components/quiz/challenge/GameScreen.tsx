@@ -12,15 +12,16 @@ import { Badge } from "@/components/ui/badge";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import MarkdownChallengeRenderer from "@/components/quiz/challenge/MarkdownChallengeRenderer";
 import { Clock, Users, MessageCircle, Trophy, LogOut } from "lucide-react";
-import type {
-  Phase,
-  currentQuestion,
-  PlayerState,
-  ChatLogEntry,
-  BroadcastLogEntry,
-} from "@/app/(user)/quiz/challenge/page";
+
 import { useEffect, useRef, useState } from "react";
 import { toast } from "react-toastify";
+import {
+  BroadcastLogEntry,
+  ChatLogEntry,
+  currentQuestion,
+  Phase,
+  PlayerState,
+} from "@/types/ai-challenge.types";
 
 interface GameScreenProps {
   phase?: Phase;

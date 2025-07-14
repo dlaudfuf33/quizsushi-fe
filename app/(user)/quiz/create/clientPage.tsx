@@ -27,14 +27,12 @@ import { QuizFormInputs } from "@/components/quiz/create/QuizFormInputs";
 import { QuizBottomController } from "@/components/quiz/create/QuizBottomController";
 import { AIGenerationLoader } from "@/components/quiz/create/AIGenerationLoader";
 import { AIGenerationSuccess } from "@/components/quiz/create/AIGenerationSuccess";
-import type { QuestionData, QuestionType } from "@/types/quiz.types";
 import BackButton from "@/components/ui/back-button";
 import { useAuth } from "@/context/AuthContext";
 import LoadingPage from "@/components/LoadingPage";
 import { TermsAgreementModal } from "@/components/quiz/create/TermsAgreementModal";
 import { AiAPI } from "@/lib/api/ai.api";
-
-import type { ParsedQuestion, QuestionData, QuestionType } from "@/types/quiz.types";
+import { ParsedQuestion, QuestionData } from "@/types/quiz.types";
 
 interface Props {
   categories: Category[];
