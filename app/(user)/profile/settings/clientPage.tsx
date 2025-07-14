@@ -82,21 +82,25 @@ export function SettingsClient({ userProfile }: Props) {
     { length: getDaysInMonth(birthYear, birthMonth) },
     (_, i) => (i + 1).toString().padStart(2, "0")
   );
-
   const handleSaveSettings = async () => {
     setIsLoading(true);
-    if (!nickname || !birthYear || birthMonth || birthDate || gender) {
+
+    const isIncomplete =
+      !nickname || !birthYear || !birthMonth || !birthDate || !gender;
+
+    if (isIncomplete) {
       toast.error("항목을 모두 채워주세요");
+      setIsLoading(false);
+      return;
     }
-    const birth = `${birthYear}-${birthMonth}-${birthDate}`;
+
+    const birth = `${birthYear.padStart(2, "0")}-${birthMonth.padStart(
+      2,
+      "0"
+    )}-${birthDate.padStart(2, "0")}`;
+
     try {
-      await Promise.all([
-        MemberAPI.updateProfile({
-          nickname,
-          birth,
-          gender,
-        }),
-      ]);
+      await MemberAPI.updateProfile({ nickname, birth, gender });
       toast.success("설정이 저장되었습니다.");
       router.back();
     } catch (error) {
@@ -105,6 +109,31 @@ export function SettingsClient({ userProfile }: Props) {
       setIsLoading(false);
     }
   };
+  // const handleSaveSettings = async () => {
+  //   setIsLoading(true);
+  //   const isIncomplete =
+  //     !nickname || !birthYear || !birthMonth || !birthDate || !gender;
+  //   if (isIncomplete) {
+  //     toast.error("항목을 모두 채워주세요");
+  //     return;
+  //   }
+  //   const birth = `${birthYear}-${birthMonth}-${birthDate}`;
+  //   try {
+  //     await Promise.all([
+  //       MemberAPI.updateProfile({
+  //         nickname,
+  //         birth,
+  //         gender,
+  //       }),
+  //     ]);
+  //     toast.success("설정이 저장되었습니다.");
+  //     router.back();
+  //   } catch (error) {
+  //     toast.error("설정 저장에 실패했습니다.");
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
 
   const handleDeleteAccount = async () => {
     if (!confirm("정말 탈퇴하시겠습니까? 이 작업은 되돌릴 수 없습니다."))
