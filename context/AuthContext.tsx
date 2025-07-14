@@ -6,7 +6,8 @@ import { createContext, useContext, useEffect, useState } from "react";
 interface User {
   id: number;
   email: string;
-  nickName: string;
+  nickname: string;
+  avatar: string;
   planTier: string;
   joinedAt: string;
 }
