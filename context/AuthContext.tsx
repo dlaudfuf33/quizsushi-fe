@@ -2,22 +2,7 @@
 
 import { apiClient } from "@/lib/api/axios";
 import { createContext, useContext, useEffect, useState } from "react";
-
-interface User {
-  id: number;
-  email: string;
-  nickname: string;
-  avatar: string;
-  planTier: string;
-  joinedAt: string;
-}
-
-interface AuthContextType {
-  user: any;
-  isLoggedIn: boolean;
-  isInitialized: boolean;
-  logout: () => void;
-}
+import { AuthContextType, User } from "@/types/auth.types";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
