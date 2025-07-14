@@ -23,6 +23,8 @@
     }
   },
   "include": [
+    "src",
+    "src/types",
     "next-env.d.ts",
     "next-auth.d.ts",
     "**/*.ts",
