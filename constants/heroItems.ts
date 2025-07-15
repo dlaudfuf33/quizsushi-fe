@@ -40,4 +40,17 @@ export const heroItems = [
   //   buttonText: "퀴즈 제작 방법 보기",
   //   buttonLink: "/quiz/create/guide",
   // },
+  {
+    id: "3",
+    title: "AI와 함께하는\n무한 퀴즈 경쟁!",
+    description: "AI가 출제하는 실시간 퀴즈\n친구들과 함께 무한 경쟁에 참여하세요!",
+    image: "egg.png",
+    imageAlt: "AI 챌린지 마스코트",
+    labels: ["AI 퀴즈", "실시간 경쟁", "단체전"],
+    color: "item1",
+    textColor: "text-gray-900 dark:text-gray-50",
+    badge: "AI 챌린지 🤖",
+    buttonText: "AI 챌린지 시작",
+    buttonLink: "/quiz/challenge",
+  },
 ];

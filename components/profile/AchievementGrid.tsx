@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Achievement } from "@/types/mypage.types";
+import { Achievement } from "@/types/profile.types";
 
 interface AchievementGridProps {
   achievements: Achievement[];

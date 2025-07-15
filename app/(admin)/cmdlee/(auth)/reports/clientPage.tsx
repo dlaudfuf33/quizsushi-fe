@@ -41,29 +41,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { AdminAPI } from "@/lib/api/admin.api";
 import { toast } from "react-toastify";
 
-interface Reporter {
-  id?: number | string;
-  email: string;
-}
-
-interface Reported {
-  type: string;
-  id?: number | string;
-  targetName: string;
-  reason: string;
-}
-
-interface Report {
-  id: number;
-  title: string;
-  message: string;
-  reporter: Reporter;
-  reported: Reported;
-  read: boolean;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { Report } from "@/types/admin.types";
 
 export default function ReportsClientPage() {
   const [reportFilter, setReportFilter] = useState("all");

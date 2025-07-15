@@ -34,7 +34,15 @@ export interface QuestionData {
   explanation?: string;
   isPreview?: boolean;
 }
-
+export interface ParsedQuestion {
+  type?: QuestionType;
+  subject?: string;
+  question: string;
+  options: string[];
+  correctAnswer?: number[];
+  correctAnswerText?: string;
+  explanation?: string;
+}
 export interface QuizSummary {
   id: string;
   title: string;

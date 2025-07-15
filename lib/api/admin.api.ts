@@ -1,39 +1,5 @@
 import { adminApiClient } from "./axios";
-export interface DashboardStatsParams {
-  start: string;
-  end: string;
-  trunc: "HOUR" | "DAY" | "WEEK" | "MONTH";
-}
-
-export interface Member {
-  id: number;
-  email: string;
-  nickname: string;
-  planTier: string;
-  createdAt: string;
-  updatedAt: string;
-  status: string;
-}
-
-interface Report {
-  id: number;
-  title: string;
-  message: string;
-  reporter: {
-    id?: number | string;
-    email: string;
-  };
-  reported: {
-    type: string;
-    id?: number | string;
-    targetName: string;
-    reason: string;
-  };
-  read: boolean;
-  status: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import { DashboardStatsParams, Member, Report } from "@/types/admin.types";
 
 export const AdminAPI = {
   async getSession(cookie?: string) {
@@ -136,5 +102,14 @@ export const AdminAPI = {
     newStatus: string
   ): Promise<void> {
     await adminApiClient.patch(`/reports/${id}/status`, { newStatus });
+  },
+
+  async getChallengeToggleStatus(): Promise<boolean> {
+    const res = await adminApiClient.get("/challenge/toggle");
+    return res.data.data;
+  },
+
+  async toggleChallengeStatus(): Promise<void> {
+    await adminApiClient.post("/challenge/toggle");
   },
 };
