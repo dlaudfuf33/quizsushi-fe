@@ -23,7 +23,8 @@ export function useSocketConnection(
     {}
   );
   const connect = useCallback(() => {
-    const socket = new SockJS("https://quizsushi.cmdlee.dev/ws/challenge");
+    const baseURL = process.env.NEXT_PUBLIC_URL;
+    const socket = new SockJS(baseURL + "ws/challenge");
 
     const client = new Client({
       webSocketFactory: () => socket as WebSocket,
