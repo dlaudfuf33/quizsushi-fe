@@ -52,7 +52,7 @@ export default function LeaderboardWidget() {
           <Trophy className="w-5 h-5 text-yellow-500" />
           리더보드
           <Badge variant="outline" className="ml-auto">
-            {isConnected ? "실시간" : "오프라인"}
+            {isConnected ? "🟢" : "🔴"}
           </Badge>
         </CardTitle>
       </CardHeader>
