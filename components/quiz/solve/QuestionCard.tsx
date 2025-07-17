@@ -294,7 +294,7 @@ export function QuestionCard({
                         정답:
                       </span>{" "}
                       <span className="font-medium">
-                        {question.type === "SHORT" ? (
+                        {question.type === "SHORTS" ? (
                           <MarkdownRenderer
                             content={question.correctAnswerText ?? "-"}
                           />

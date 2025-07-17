@@ -88,7 +88,7 @@ export function isAnswerCorrect(
 ): boolean {
   if (userAnswer === undefined) return false;
 
-  if (question.type === "SHORT") {
+  if (question.type === "SHORTS") {
     return (
       typeof userAnswer === "string" &&
       userAnswer.trim().toLowerCase() ===
