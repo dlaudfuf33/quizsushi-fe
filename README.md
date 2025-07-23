@@ -2,11 +2,12 @@
 
 ## 🛠️ 기술 스택
 
-| 분류        | 기술 |
-|-------------|-------|
-| **Framework** | <img src="https://skillicons.dev/icons?i=nextjs&theme=light" height="20"/> Next.js 14 |
-| **Styling**   | <img src="https://skillicons.dev/icons?i=tailwind&theme=light" height="20"/> Tailwind CSS |
-| **Language**  | <img src="https://skillicons.dev/icons?i=ts&theme=light" height="20"/> TypeScript |
+| 카테고리 | 라이브러리 | 설명 |
+| :--- | :--- | :--- |
+| **Framework**      | Next.js 14             | React 기반의 SSR 및 파일 기반 라우팅 프레임워크 |
+| **Language**       | TypeScript             | 정적 타입을 제공하는 JavaScript 확장 언어 |
+| **Styling**        | Tailwind CSS           | Utility-first CSS 프레임워크 |
+
 
 
 
