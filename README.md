@@ -1,66 +1,96 @@
-# QuizSushi Frontend
+# **QuizSushi Frontend**
+
+## 🛠️ 기술 스택
+
+| 분류        | 기술 |
+|-------------|-------|
+| **Framework** | <img src="https://skillicons.dev/icons?i=nextjs&theme=light" height="20"/> Next.js 14 |
+| **Styling**   | <img src="https://skillicons.dev/icons?i=tailwind&theme=light" height="20"/> Tailwind CSS |
+| **Language**  | <img src="https://skillicons.dev/icons?i=ts&theme=light" height="20"/> TypeScript |
 
 
-## 주요 기술 스택
 
-- **Next.js 15** (App Router)
-- **TypeScript**
-- **pnpm**
-- **Tailwind CSS** 및 **Radix UI**
-- Axios 기반 API 모듈
+## 🗂️ 주요 페이지
 
-## 핵심 기능
+### `/` - 메인 페이지
+서비스의 홈. 퀴즈 목록과 주요 기능 진입점 역할을 합니다.  
 
-- OAuth2 기반 소셜 로그인과 회원 관리
-- 퀴즈 생성·편집·삭제 및 문제 풀이 기능
-- CSV/JSON 업로드와 AI를 이용한 문제 자동 생성
-- 관리자 대시보드(통계 차트, 신고 처리, 회원/관리자 관리)
-- 다크 모드 지원 및 반응형 UI
+<p align="center">
+  <img width="800" height="600" alt="main" src="https://github.com/user-attachments/assets/6685cce9-9b5d-47f9-a463-c786ab911f25" />
+</p>
 
-## 폴더 구조
+---
 
-- `app/` – Next.js 라우트. `(user)`와 `(admin)` 그룹으로 나뉩니다.
-- `components/` – 재사용 가능한 UI 컴포넌트 모음
-- `context/` – 사용자·관리자 인증 컨텍스트
-- `lib/` – API 래퍼, 서버 유틸리티, CSV/JSON 파서 등
-- `hooks/` – 커스텀 훅
-- `types/` – 타입 정의 파일
-- `public/` – 정적 자원
+### `/quiz/create` - 퀴즈 생성 페이지  
+사용자가 퀴즈를 직접 만들 수 있으며, JSON, AI 자동 생성 기능도 포함됩니다.
 
-## 시작하기
+<p align="center">
+  <img width="450" height="600" alt="filequiz" src="https://github.com/user-attachments/assets/392f1f22-3c25-47fd-b534-fa6b51a642ca" />
+  <img width="450" height="600" alt="aiquiz" src="https://github.com/user-attachments/assets/a566d037-62b1-4bd6-87e4-ad9d00440541" />
+</p>
 
-1. 프로젝트 루트에 `.env.local` 파일을 만들고 다음과 같이 API 주소를 설정합니다.
+---
 
-```bash
-NEXT_PUBLIC_API_URL=<백엔드 API 주소>
-NEXT_PUBLIC_ADMIN_API_URL=<관리자 API 주소>
-```
+### `/quiz/solve/[id]` - 퀴즈 풀이 페이지  
+선택한 퀴즈를 푸는 페이지. 문제와 보기, 채점 결과를 보여줍니다.
 
-2. 의존성 설치
+<p align="center">
+  <img width="450" height="600" alt="solve" src="https://github.com/user-attachments/assets/22f78f79-c1cd-4862-ba6f-d4129f3b5522" />
+</p>
 
-```bash
-pnpm install
-```
+---
 
-3. 개발 서버 실행
+### `/quiz/challenge` - 실시간 챌린지
+다른 사용자들과 실시간 퀴즈 대결을 위한 페이지입니다.
 
-```bash
-pnpm dev
-```
+<p align="center">
+  <img width="400" height="600" src="https://github.com/user-attachments/assets/2975bb8c-6160-4f89-a14c-5c1a5aefdf4a" />
+  <img width="400" height="600" src="https://github.com/user-attachments/assets/1264684a-dc35-4df2-b30d-31c69d9ce5b0" />
+</p>
 
-로컬 HTTPS가 필요하다면 `ssl/` 디렉터리에 있는 인증서를 사용할 수 있습니다.
 
-## 사용 가능한 스크립트
+---
 
-- `pnpm dev` – 개발 서버 시작
-- `pnpm build` – 프로덕션 빌드 생성
-- `pnpm start` – 빌드 결과 실행
-- `pnpm lint` – ESLint 검사
+### `/quiz/categories` - 카테고리 탐색 페이지  
+카테고리별 퀴즈를 탐색할 수 있습니다.
 
-## 다음 단계
+<p align="center">
+  <img width="800" src="https://github.com/user-attachments/assets/9980e199-2c48-4c70-ac19-461f5eb533cf" />
+</p>
 
-- `lib/api/`의 각 파일을 읽어 백엔드 API 구조를 파악하세요.
-- `context/AuthContext.tsx`와 `context/AdminContext.tsx`에서 인증 플로우를 살펴보세요.
-- `components/`와 `app/` 하위 폴더를 탐색하여 페이지와 레이아웃 구성을 익히면 빠르게 기능을 확장할 수 있습니다.
+---
 
-이 프로젝트는 기본적인 퀴즈 플랫폼 기능을 갖추고 활용하기 좋습니다. 필요에 맞게 커스터마이즈하여 자신만의 프로젝트로 발전시켜 보세요.
+### `/profile/**` - 마이페이지  
+내가 푼 퀴즈, 만든 퀴즈, 활동 내역을 확인할 수 있습니다.
+
+<p align="center">
+  <img width="800" src="https://github.com/user-attachments/assets/88c37aee-a385-47d0-afb2-34fc491a4b85" />
+</p>
+
+
+---
+
+
+### `/admin/cmdlee/dashboard` - 관리자 대시보드  
+서비스 통계 및 주요 지표를 시각화한 페이지입니다.
+
+<p align="center">
+  <img width="800" height="600" alt="solve" src="https://github.com/user-attachments/assets/fa22fcad-4f85-46ab-8b9d-87f3e67387be" />
+</p>
+
+
+
+## **주요 기능**
+
+- **OAuth 로그인 연동**: 카카오, 구글 소셜 계정을 통한 간편 가입/로그인.
+- **퀴즈 풀기 + 결과 확인**: 다양한 유형의 퀴즈를 풀고, 즉각적인 채점 및 결과 확인.
+- **실시간 WebSocket 통신**: STOMP 프로토콜을 통해 퀴즈 챌린지 게임 상태 및 채팅 동기화.
+- **퀴즈 생성 (AI 활용)**: 사용자가 직접 퀴즈를 생성하거나 JSON파일 혹은 AI를 활용한 문제 자동 생성 기능 포함.
+- **관리자 대시보드 및 관리 기능**: 사용자, 퀴즈, 신고 등 서비스 전반을 관리하는 대시보드 및 상세 관리 기능 제공.
+- **사용자 프로필 관리**: 개인 정보 조회 및 관리, 활동 내역(생성/풀이 퀴즈) 확인.
+- **카테고리별 퀴즈 탐색**: 다양한 카테고리별로 퀴즈를 쉽게 찾아볼 수 있는 기능.
+- **라이트/다크 모드 지원**: 사용자 선호에 따른 테마 변경 기능.
+- **풍부한 콘텐츠 표시**: 마크다운 렌더링 및 코드 구문 강조를 통해 퀴즈 설명 등 복잡한 콘텐츠를 가독성 높게 표시.
+
+
+
