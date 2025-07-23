@@ -1,4 +1,4 @@
-# **QuizSushi Frontend**
+# 🍣 QuizSushi - Frontend
 
 ## 🛠️ 기술 스택
 
