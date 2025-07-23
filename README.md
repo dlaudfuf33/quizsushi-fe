@@ -95,6 +95,4 @@
 
 
 
-<p align="left">
-  <img src="https://komarev.com/ghpvc/?username=dlaudfuf33&label=view&color=0e75b6&style=flat" alt="VIEW" />
-</p>
+
