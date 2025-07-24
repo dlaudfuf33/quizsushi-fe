@@ -1,4 +1,9 @@
 # 🍣 QuizSushi - Frontend
+### 📂 관련 링크
+
+- 🔗 **Backend Repository**: [quizsushi-be (Spring)](https://github.com/dlaudfuf33/quizsushi-be)
+- 🚀 **배포 주소**: [https://quizsushi.cmdlee.com](https://quizsushi.cmdlee.com)
+
 
 ## 🛠️ 기술 스택
 
